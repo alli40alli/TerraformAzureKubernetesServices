@@ -8,6 +8,8 @@ output "output_aks_id" {
   value = module.aks.output_aks_id
 }
 
+
+
 ### the outputs below are optional 
 /*
 output "outout_aks_fqdn" {
