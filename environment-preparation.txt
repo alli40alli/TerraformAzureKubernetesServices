@@ -1,0 +1,27 @@
+----------------------------------------------------------------------------------------------
+environment preparation
+----------------------------------------------------------------------------------------------
+
+/// before applying of the terraform files to create the AKS cluster and its related resources
+/// there is some resources to create 
+
+/ 1. Service Principal to be used by the AKS cluster 
+/ open Azure Cloud Shell or CLI
+az ad sp create-for-rbac -n "MySPforAKS"
+IMPORTANT: note the generated "app ID" and "client secret"
+
+/ 2. generate the ssh keys for the Linux profile of the nodepool
+ssh-keygen -t rsa -b 4096
+---> this will be saved in .ssh/ folder, note the public key 
+
+/ 3. create a key vault in Azure portal 
++ go to Azure portal and add a new resource "key vault"
++ once created go to secrets
++ add a new secret, name it, and save the app ID generated from operation 1.
++ add a new secret, name it, and save the client secret generated from operation 1.
++ add a new secret, name it, and save the public IP generated from operation 2.
+
+the 3 information above will be used in data.tf file 
+
+/ 4. (optional) if you want a remote backend, uncomment the remote_access.tf and create a stoage account 
+/ complete the uncommented code with your storage account information
